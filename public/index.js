@@ -72,6 +72,21 @@ const deliveries = [{
   }
 }];
 
+
+deliveries.forEach(function(element)
+{
+	truckers.forEach(function(trucker)
+	{
+		if (trucker["id"] == element["truckerId"] )
+		{
+			console.log(element["truckerId"]);
+			element["price"] = element["distance"] * trucker["pricePerKm"] + element["volume"] * trucker["pricePerVolume"];
+			console.log(element["price"]);
+		}
+	});
+});
+
+
 //list of actors for payment
 //useful from step 5
 const actors = [{
