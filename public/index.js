@@ -72,7 +72,52 @@ const deliveries = [{
   }
 }];
 
+//STEP 1
+// deliveries.forEach(function(element)
+// {
+	// truckers.forEach(function(trucker)
+	// {
+		// if (trucker["id"] == element["truckerId"] )
+		// {
+			// console.log(element["truckerId"]);
+			// element["price"] = element["distance"] * trucker["pricePerKm"] + element["volume"] * trucker["pricePerVolume"];
+			// console.log(element["price"]);
+		// }
+	// });
+// });
 
+//STEP 2
+// deliveries.forEach(function(element)
+// {
+	// truckers.forEach(function(trucker)
+	// {
+		// if (trucker["id"] == element["truckerId"] )
+		// {
+			// console.log(element["truckerId"]);
+			// if ( element["volume"] > 5 && element["volume"] < 11 )
+			// {
+				// element["price"] = element["distance"] * trucker["pricePerKm"] + element["volume"] * trucker["pricePerVolume"]*0.90;
+			// }
+			// else if ( element["volume"] > 10 && element["volume"] < 25 )
+			// {
+				// element["price"] = element["distance"] * trucker["pricePerKm"] + element["volume"] * trucker["pricePerVolume"]*0.70;
+			// }
+			// else if ( element["volume"] > 25 )
+			// {
+				// element["price"] = element["distance"] * trucker["pricePerKm"] + element["volume"] * trucker["pricePerVolume"]*0.50;
+			// }
+			// else
+			// {
+				// element["price"] = element["distance"] * trucker["pricePerKm"] + element["volume"] * trucker["pricePerVolume"];
+			// }
+			
+			// console.log(element["price"]);
+		// }
+	// });
+// });
+
+
+//STEP 3
 deliveries.forEach(function(element)
 {
 	truckers.forEach(function(trucker)
@@ -80,11 +125,34 @@ deliveries.forEach(function(element)
 		if (trucker["id"] == element["truckerId"] )
 		{
 			console.log(element["truckerId"]);
-			element["price"] = element["distance"] * trucker["pricePerKm"] + element["volume"] * trucker["pricePerVolume"];
+			if ( element["volume"] > 5 && element["volume"] < 11 )
+			{
+				element["price"] = element["distance"] * trucker["pricePerKm"] + element["volume"] * trucker["pricePerVolume"]*0.90;
+
+			}
+			else if ( element["volume"] > 10 && element["volume"] < 25 )
+			{
+				element["price"] = element["distance"] * trucker["pricePerKm"] + element["volume"] * trucker["pricePerVolume"]*0.70;
+			}
+			else if ( element["volume"] > 25 )
+			{
+				element["price"] = element["distance"] * trucker["pricePerKm"] + element["volume"] * trucker["pricePerVolume"]*0.50;
+			}
+			else
+			{
+				element["price"] = element["distance"] * trucker["pricePerKm"] + element["volume"] * trucker["pricePerVolume"];
+			}
+			element["commission"]["insurance"] = element["price"]*0.70*0.5;
+			console.log(" commission : insurance = " + element["commission"]["insurance"]);
+			element["commission"]["treasury"] = element["distance"]/500;
+			console.log(" commission : treasury = " + element["commission"]["treasury"]);
+			element["commission"]["convargo"] = element["price"] - element["commission"]["insurance"] - element["commission"]["treasury"];
+			console.log(" commission : convargo = " + element["commission"]["convargo"]);
 			console.log(element["price"]);
 		}
 	});
 });
+
 
 
 //list of actors for payment
