@@ -123,11 +123,11 @@ function addCommission()
 		{
 			if (trucker["id"] == element["truckerId"] )
 			{
-				element["commission"]["insurance"] = element["price"]*0.70*0.5;
+				element["commission"]["insurance"] = element["price"]*0.30*0.5;
 				console.log(" commission : insurance = " + element["commission"]["insurance"]);
-				element["commission"]["treasury"] = element["distance"]/500;
+				element["commission"]["treasury"] = Math.ceil(element["distance"]/500);
 				console.log(" commission : treasury = " + element["commission"]["treasury"]);
-				element["commission"]["convargo"] = element["price"]*0.70 - element["commission"]["insurance"] - element["commission"]["treasury"];
+				element["commission"]["convargo"] = element["price"]*0.30 - element["commission"]["insurance"] - element["commission"]["treasury"];
 				console.log(" commission : convargo = " + element["commission"]["convargo"]);
 				console.log(element["price"]);
 			}
@@ -135,6 +135,7 @@ function addCommission()
 	});
 }
 
+// STEP 4
 function addDeductibleReduction()
 {
 	addCommission();
@@ -149,6 +150,30 @@ function addDeductibleReduction()
 					element["price"] += element["volume"];
 					console.log("dernier prix : " + element["price"]);
 				}
+			}
+		});
+	});
+}
+
+//STEP 5
+
+function payTheActors()
+{
+	deliveries.forEach(function(element)
+	{
+		actors.forEach(function(actor)
+		{
+			if (actor["deliveryId"] == element["id"] )
+			{
+				addCommission()
+				
+				actor["payment"][1]["amount"] = element["price"]*0.70;
+				actor["payment"][2]["amount"] = element["commission"]["insurance"];
+				actor["payment"][3]["amount"] = element["commission"]["treasury"];
+				actor["payment"][4]["amount"] = element["commission"]["convargo"];
+				addDeductibleReduction();
+				actor["payment"][0]["amount"] = element["price"];
+				
 			}
 		});
 	});
